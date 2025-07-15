@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Volunteer Management System</title>
+
+  <link crossorigin="anonymous"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button aria-controls="navbar" aria-expanded="false"
+              class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse"
+              type="button">
+        <span class="sr-only">Toggle navigation</span> <span
+              class="icon-bar"></span> <span class="icon-bar"></span> <span
+              class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" th:href="@{/}">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<br>
+<br>
+<br>
+<div class="container my-2">
+
+  <h1 align="center">Registration Summary</h1>
+  <hr>
+
+  <h2 align="center">Overall Summary</h2>
+  <hr>
+  <table border="1" class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th class="text-center">Gender</th>
+      <th class="text-center">Total Expected Volunteers</th>
+      <th class="text-center">Total Registered Volunteers</th>
+      <th class="text-center">Reg. Volunteers Staying</th>
+      <th class="text-center">Reg. Volunteers Up/Down</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="OverallSummary : ${OSvolunteers}">
+      <td style="font-weight:bold" th:text="${OverallSummary.gender}"></td>
+      <td style="font-weight:bold" align = "center" th:text="${OverallSummary.totalExpected_Volunteers}"></td>
+      <td style="font-weight:bold" align = "center" th:text="${OverallSummary.totalRegistered_Volunteers}"></td>
+      <td style="font-weight:bold" align = "center" th:text="${OverallSummary.volunteer_stay}"></td>
+      <td style="font-weight:bold" align = "center" th:text="${OverallSummary.volunteer_ud}"></td>
+    </tr>
+  </table>
+
+  <a th:href="@{/homePage}"> Back to Volunteer List</a>
+
+
+  <hr>
+  <h2 align="center">Department Summary</h2>
+  <hr>
+  <table border="1" class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th class="text-center">Department</th>
+      <th class="text-center">Expected Male</th>
+      <th class="text-center">Expected Female</th>
+      <th class="text-center">Total Expected Volunteers</th>
+      <th class="text-center">Registered Male</th>
+      <th class="text-center">Registered Female</th>
+      <th class="text-center">Total Registered Volunteers</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="volunteerSummary : ${volunteers}">
+      <td style="font-weight:bold" th:text="${volunteerSummary.departments}"></td>
+      <td align = "center" th:text="${volunteerSummary.expected_male}"></td>
+      <td align = "center" th:text="${volunteerSummary.expected_female}"></td>
+      <td style="font-weight:bold" align = "center" th:text="${volunteerSummary.total_expected}"></td>
+      <td align = "center" th:text="${volunteerSummary.arrived_male}"></td>
+      <td align = "center" th:text="${volunteerSummary.arrived_female}"></td>
+      <td style="font-weight:bold" align = "center" th:text="${volunteerSummary.total_registered}"></td>
+    </tr>
+  </table>
+
+
+<a th:href="@{/homePage}"> Back to Volunteer List</a>
+</div>
+</body>
+</html>

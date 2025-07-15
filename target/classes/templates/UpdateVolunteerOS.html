@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Volunteer Management System</title>
+
+    <link crossorigin="anonymous"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          rel="stylesheet">
+</head>
+
+<body>
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false"
+                    class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse"
+                    type="button">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<br>
+
+
+<div class="container">
+    <h1 align="center">Registration Management System</h1>
+
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h2 style="display:inline;">Update Volunteer</h2>
+        </div>
+        <div class="col-sm-6" style="text-align: right">
+            <h5 style="display:inline;"><a th:href="@{/homePage}"> Back to Volunteer List</a></h5>
+        </div>
+    </div>
+    <hr>
+</div>
+
+<div class="container">
+    <form action="#" method="POST" th:action="@{/saveVolunteer}" th:object="${Volunteer}">
+
+        <!-- Add hidden form field to handle update -->
+        <input th:field="*{id}" type="hidden"/>
+        <input th:field="*{supervisor}" type="hidden"/>
+
+        <div class="row">
+            <div class="col-sm-6">
+        <div class="form-group">
+            <label>Arrival/Departure Status</label>:
+            <div class="column">
+                <input class="custom-control-input" id="arrived" name="arrived" style="display:inline-block"
+                       th:field="*{arrival_status}" type="radio" value="Arrived">
+                <label class="custom-control-label" for="arrived"
+                       style="margin-right: 50px">Arrived/Staying</label>
+                <input class="custom-control-input" id="departed" name="departed" style="display:inline-block"
+                       th:field="*{arrival_status}" type="radio" value="Departed">
+                <label class="custom-control-label" for="departed" style="margin-right: 50px">Departed</label>
+                <input class="custom-control-input" id="upDown" name="upDown" style="display:inline-block"
+                       th:field="*{arrival_status}" type="radio" value="Up/Down">
+                <label class="custom-control-label" for="upDown" style="margin-right: 50px">Up/Down</label>
+            </div>
+        </div>
+                </div>
+            <div class="col-sm-6">
+                <label>Accommodation Category</label>:
+                <select th:field="*{acc_category}" class="form-control mb-4 col-4" placeholder="Select Accommodation Category">
+                    <option th:value="'Stay'" th:text="Stay"></option>
+                    <option th:value="'Up/Down'" th:text="Up-Down"></option>
+                </select><br>
+             </div>
+            </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Volunteer Unique ID</label>:
+                <input class="form-control mb-4 col-4" placeholder="Volunteer Unique ID" readonly
+                       th:field="*{volunteerId}" type="text"><br>
+                <label>Smart Card ID</label>:
+                <input class="form-control mb-4 col-4" placeholder="ABC123"
+                       th:field="*{smartCardId}"
+                       type="text"><br>
+                <label>Name</label>:
+                <input class="form-control mb-4 col-4" placeholder="Name" th:field="*{name}" type="text"><br>
+                <label>Contact Number</label>:
+                <input class="form-control mb-4 col-4" placeholder="Contact Number" th:field="*{contactNumber}"
+                       type="text"><br>
+                <label>Email ID</label>:
+                <input class="form-control mb-4 col-4" placeholder="example@email.com" th:field="*{email_id}"
+                       type="text"><br>
+                </div>
+            <div class="col-sm-6">
+                <label>Remarks</label>:
+                <input class="form-control mb-4 col-4" placeholder="Add Remarks (if any)" th:field="*{remarks}"
+                       type="text"><br>
+                <label>Volunteer Contribution</label>:
+                <input class="form-control mb-4 col-4" placeholder="Insert Receipt Amount" th:field="*{receipt_amt}"
+                       type="text"><br>
+                <label>Gender</label>:
+                <select th:field="*{gender}" class="form-control mb-4 col-4" placeholder="Select Gender">
+                    <option th:value="'M'" th:text="Male"></option>
+                    <option th:value="'F'" th:text="Female"></option>
+                </select><br>
+                <label>Department</label>:
+                <select th:field="*{department}" class="form-control mb-4 col-4" placeholder="Department">
+                    <option th:each="department:${listDepartment}"
+                            th:value="${department.department}"
+                            th:text="${department.departmentCode}+' : '+${department.department}"></option>
+                </select><br>
+                <label>District</label>:
+                <input class="form-control mb-4 col-4" placeholder="District" th:field="*{district}" type="text"><br>
+
+            </div>
+        </div>
+        <button class="btn btn-info col-2" type="submit"> Update Volunteer</button>
+    </form>
+
+    <hr>
+
+    <a th:href="@{/homePage}"> Back to Volunteer List</a>
+</div>
+</body>
+
+</html>

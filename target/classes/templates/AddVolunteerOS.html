@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Volunteer Management System</title>
+    <link crossorigin="anonymous"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          rel="stylesheet">
+    ">
+</head>
+
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false"
+                    class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse"
+                    type="button">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+
+<div class="container">
+    <br>
+    <h1 align="center">Volunteer Management System</h1>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h2 style="display:inline;">Add Volunteer On-Spot</h2>
+        </div>
+        <div class="col-sm-6" style="text-align: right">
+            <h5 style="display:inline;"><a th:href="@{/homePage}"> Back to Volunteer List</a></h5>
+        </div>
+    </div>
+    <hr>
+
+    <form action="#" method="POST" th:action="@{/saveVolunteer}" th:object="${Volunteer}">
+        <div class="row">
+            <div class="col-sm-6">
+        <label>Smart Card ID</label>
+        <input class="form-control mb-4 col-4" placeholder="ABC123" th:field="*{smartCardId}"
+               type="text"><br>
+        <label>Name</label>
+        <input class="form-control mb-4 col-2" placeholder="Name" th:field="*{name}" type="text"><br>
+                <label>Contact Number</label>
+                <input class="form-control mb-4 col-4" placeholder="Contact Number" th:field="*{contactNumber}" type="text"><br>
+                <label>Email ID</label>
+                <input class="form-control mb-4 col-4" placeholder="example@email.com" th:field="*{email_id}" type="text"><br>
+            </div>
+            <div class="col-sm-6">
+                <label>Gender</label>
+                <select th:field="*{gender}" class="form-control mb-4 col-4" placeholder="Select Department">
+                    <option th:value="'M'" th:text="Male"></option>
+                    <option th:value="'F'" th:text="Female"></option>
+                </select><br>
+
+                <label>Department</label>
+                <select th:field="*{department}" class="form-control mb-4 col-4" placeholder="Select Department">
+                    <option th:each="department:${listDepartment}"
+                            th:value="${department.department_name}"
+                            th:text="${department.department_code}+' : '+${department.department_name}"></option>
+                </select><br>
+
+                <label>Department Supervisor</label>
+                <select th:field="*{Supervisor}" class="form-control mb-4 col-4" placeholder="Select Department">
+                    <option th:each="department:${listDepartment}"
+                            th:value="${department.supervisor}"
+                            th:text="${department.department_code}+' : '+${department.supervisor}"></option>
+                </select><br>
+
+        <label>District</label>
+        <input class="form-control mb-4 col-4" placeholder="District" th:field="*{district}" type="text"><br>
+
+            </div>
+        </div>
+        <label>Remarks</label>
+        <input class="form-control mb-4 col-2" placeholder="Add Remarks, if any" th:field="*{remarks}" type="text"><br>
+        <button class="btn btn-info col-2" type="submit">Add Volunteer</button>
+    </form>
+
+    <hr>
+
+    <a th:href="@{/homePage}"> Back to Volunteer List</a>
+</div>
+</body>
+
+</html>

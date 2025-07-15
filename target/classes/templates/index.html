@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Volunteer Management System</title>
+
+    <link crossorigin="anonymous"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          rel="stylesheet">
+
+</head>
+
+<body>
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false"
+                    class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse"
+                    type="button">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<br>
+<div class="container">
+    <h1 align="center">Registration Management System</h1>
+    <hr>
+    <h2 align="center"> Volunteers List </h2>
+
+    <br>
+
+    <h4 align="center">Search for Volunteers</h4>
+    <form align="center" method="get" th:action="@{/search}">
+        <input name="keyword" placeholder="Find by Volunteer Unique ID, Smart Card ID, Name or Department"
+               size="75"
+               th:value="${keyword}" type="text">
+        <button class="btn btn-info" type="submit">Search</button>
+        <button class="btn btn-info" type="submit">Reset</button>
+    </form>
+    <br>
+    <br>
+    </div>
+
+<div class="container-fluid">
+    <div class="col-sm-11" style="float:none;margin:auto;">
+    <table border="1" class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=volunteerId&sortSeq=' + ${reverseSortDir}}">V. ID</a></th>
+            <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=smartCardId&sortSeq=' + ${reverseSortDir}}">SC
+                No.</a></th>
+            <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=name&sortSeq=' + ${reverseSortDir}}">Name</a></th>
+            <th>Gender</th>
+            <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=department&sortSeq=' + ${reverseSortDir}}">Department</a>
+            </th>
+            <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=supervisor&sortSeq=' + ${reverseSortDir}}">Supervisor</a>
+            </th>
+            <th>Acc. Category</th>
+            <th>Receipt Amt</th>
+            <th>Arrival Status</th>
+            <th>Arrived At</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="volunteer : ${listVolunteers}">
+            <td th:text="${volunteer.volunteerId}"></td>
+            <td th:text="${volunteer.smartCardId}"></td>
+            <td th:text="${volunteer.name}"></td>
+            <td align="center" th:text="${volunteer.gender}"></td>
+            <td th:text="${volunteer.department}"></td>
+            <td th:text="${volunteer.supervisor}"></td>
+            <td th:text="${volunteer.acc_category}"></td>
+            <td th:text="${volunteer.receipt_amt}"></td>
+            <td th:text="${volunteer.arrival_status}"></td>
+            <td th:text="${volunteer.arrival_ts}"></td>
+            <td><a class="btn btn-primary" th:href="@{/showFormForUpdate/{id}(id=${volunteer.id})}"
+                   th:if="${volunteer.arrival_status != 'Arrived'}">Update</a></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+<div class = "container">
+    <div class="col-sm-8" style="float:none;margin:auto;">
+    <div th:if="${totalPages > 1}">
+        <div class="row">
+                <label>Total Volunteers:</label> [[${totalItems}]] &emsp;&emsp;
+                <label>Pages</label>
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortSeq=' + ${sortSeq}}"
+         th:if="${currentPage != i}"> [[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                    </span>
+
+                <a th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortSeq=' + ${sortSeq}}"
+                   th:if="${currentPage < totalPages}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+                <a th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortSeq=' + ${sortSeq}}"
+                   th:if="${currentPage < totalPages}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    <hr>
+    <p align="center"><a class="btn btn-info col-3" th:href="@{/addVolunteerOS}"> Add Volunteer On-Spot </a>
+    <a class="btn btn-info col-3" th:href="@{/volunteerSummary}"> View Registration Summary </a>
+    <hr>
+</div>
+</div>
+
+</body>
+</html>
